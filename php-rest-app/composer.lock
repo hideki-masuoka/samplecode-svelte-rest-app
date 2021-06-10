@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "235d30998ff2b9fb6c9fda7a7b8b1dd2",
+    "content-hash": "74ef0784ca91289bb9de03c8509c4af9",
     "packages": [
         {
             "name": "popphp/pop-config",

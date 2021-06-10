@@ -1,5 +1,6 @@
 {
     "require": {
-        "popphp/popcorn": "^3.4"
+        "popphp/popcorn": "^3.4",
+        "popphp/pop-http": "^4.1"
     }
 }
