@@ -31,4 +31,26 @@ $app->get(
 );
 
 
+// STEP02 CORS対応処理
+$app->options(
+    '/saveparams/',
+    function () {
+        header('Access-Control-Allow-Origin: http://localhost:3000');
+        header('Access-Control-Allow-Headers: Origin, Content-Type');
+    }
+);
+
+// STEP02 パラメータ送信に応答する機能を登録します。
+$app->post(
+    '/saveparams/',
+    function () {
+        header('Access-Control-Allow-Origin: http://localhost:3000');
+        header('Access-Control-Allow-Headers: Origin, Content-Type');
+
+        // STEP02 受信確認メッセージを返します
+        echo json_encode(['message' => '受信しました']);
+    }
+);
+
+
 $app->run();
