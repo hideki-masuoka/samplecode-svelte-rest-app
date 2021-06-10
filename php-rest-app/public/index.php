@@ -4,6 +4,16 @@ require_once '../vendor/autoload.php';
 
 use Popcorn\Pop;
 
+// STEP03 データベースを準備します
+$pdo = new PDO('sqlite:example.db');
+$sql = <<< "SQL"
+  CREATE TABLE IF NOT EXISTS config (
+    param_id INTEGER PRIMARY KEY,
+    params TEXT
+  );
+SQL;
+$pdo->exec($sql);
+
 // STEP01 マイクロフレームワークの準備
 $app = new Pop();
 
