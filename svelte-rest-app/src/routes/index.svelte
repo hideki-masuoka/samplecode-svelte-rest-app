@@ -115,6 +115,14 @@ import { beforeUpdate, onMount } from 'svelte';
 	<br>
 	text : <br>
 	<textarea bind:value="{text}"></textarea>
+	<br>
+	<button on:click="{saveParams}">
+		SAVE
+	</button>
+	{#if message}
+		<br>
+		<strong>{message.message}</strong>
+	{/if}
 </div>
 
 <style>
