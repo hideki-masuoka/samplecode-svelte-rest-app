@@ -36,6 +36,23 @@ $app->get(
             'luc'  => '2',
             'text' => "I'm stronger2."
         ];
+
+        // STEP04 データベースからパラメータを取得します
+        $sql = <<< 'SQL'
+          SELECT param_id, params
+          FROM config
+          WHERE (param_id = 1);
+        SQL;
+
+        $pdo = new PDO('sqlite:example.db');
+        $sth = $pdo->prepare($sql);
+        $sth->execute();
+        $db_data = $sth->fetchColumn(1);
+
+        // STEP04 取得したパラメータを返します
+        // STEP04 取得した結果がnullのときは、デフォルトデータを返します
+        $params = json_decode($db_data) ?? $params;
+
         echo json_encode($params);
     }
 );
