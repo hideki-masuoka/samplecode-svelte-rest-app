@@ -57,8 +57,28 @@ $app->post(
         header('Access-Control-Allow-Origin: http://localhost:3000');
         header('Access-Control-Allow-Headers: Origin, Content-Type');
 
+        // STEP03 pop-httpでリクエストデータを受け取ります
+        $request = new \Pop\Http\Server\Request();
+        $params = $request->getParsedData();
+        $encoded_params = json_encode($params);
+
+        // STEP03 リクエストデータを保存します
+        $sql = <<< "SQL"
+          INSERT OR REPLACE INTO
+            config(param_id, params)
+          VALUES(1, :params);
+        SQL;
+
+        $pdo = new PDO('sqlite:example.db');
+        $sth = $pdo->prepare($sql);
+        $sth->bindParam(':params', $encoded_params);
+        $bool = $sth->execute();
+
+        $message = $bool ? '保存しました' : '保存できませんでした';
+
         // STEP02 受信確認メッセージを返します
-        echo json_encode(['message' => '受信しました']);
+        // STEP03 実行結果をメッセージとして返します
+        echo json_encode(['message' => $message]);
     }
 );
 
