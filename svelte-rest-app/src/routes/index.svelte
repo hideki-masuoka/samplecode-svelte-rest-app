@@ -47,6 +47,37 @@ import { beforeUpdate, onMount } from 'svelte';
 		luc  = params.luc;
 		text = params.text;
 	});
+
+	// STEP02 送信結果を受け取る変数
+	let message = false;
+
+	// STEP02 fetchでパラメータを送信する機能
+	const saveParams = async () => {
+		const serverURL = 'http://localhost:8080/saveparams';
+		const response = await fetch(
+			serverURL,
+			{
+				method: 'POST',
+				mode: 'cors',
+				credentials: 'omit',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					name: name,
+					lv: lv,
+					hp: hp,
+					mp: mp,
+					agi: agi,
+					tec: tec,
+					str: str,
+					luc: luc,
+					text: text
+				})
+			}
+		);
+		message = await response.json();
+	}
 </script>
 
 <div class="status-view">
