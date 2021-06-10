@@ -1,5 +1,6 @@
 <script>
-import { beforeUpdate } from 'svelte';
+// STEP01 onMountを呼び出します
+import { beforeUpdate, onMount } from 'svelte';
 
 	let name = 'name';
 	let lv = 10;
@@ -16,6 +17,35 @@ import { beforeUpdate } from 'svelte';
 	beforeUpdate(()=>{
 		max_hp = lv * str;
 		max_mp = Math.round((lv * agi) / 2);
+	});
+
+	// STEP01 fetchでパラメータを取得する機能
+	const getParams = async () => {
+		const serverURL = 'http://localhost:8080/params';
+		const response = await fetch(
+			serverURL,
+			{
+				method: 'GET',
+				mode: 'cors',
+				credentials: 'omit'
+			}
+		);
+		return await response.json();
+	}
+
+	// STEP01 アプリマウント時に、取得したパラメータを変数に適用する処理
+	onMount(async ()=>{
+		let params = await getParams();
+
+		name = params.name;
+		lv   = params.lv;
+		hp   = params.hp;
+		mp   = params.mp;
+		agi  = params.agi;
+		tec  = params.tec;
+		str  = params.str;
+		luc  = params.luc;
+		text = params.text;
 	});
 </script>
 
